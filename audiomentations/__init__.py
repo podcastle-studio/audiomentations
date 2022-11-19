@@ -30,7 +30,7 @@ from .augmentations.seven_band_parametric_eq import SevenBandParametricEQ
 from .augmentations.shift import Shift
 from .augmentations.tanh_distortion import TanhDistortion
 from .augmentations.time_mask import TimeMask
-from .augmentations.time_stretch import TimeStretchgit status
+from .augmentations.time_stretch import TimeStretch
 from .augmentations.trim import Trim
 from .augmentations.add_dc_component import AddDCComponent
 from .core.composition import Compose, SpecCompose, OneOf, SomeOf
