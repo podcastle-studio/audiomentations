@@ -76,12 +76,10 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
                 transforms=[
                     AddBackgroundNoise(environmental_noises_path, p=1),
                     AddBackgroundNoise(background_noises_path, p=1),
-                    AddShortNoises(short_noises_path, noise_rms='relative_to_whole_input', p=1)
+                    AddShortNoises(short_noises_path, noise_rms='relative_to_whole_input', p=1),
+                    AddDCComponent(p=1)
                 ]
             ),
-            OneOf([
-                AddDCComponent(p=1),
-            ]),
             OneOf([
                 Phaser(p=1),
                 ApplyImpulseResponse(impulse_responses_path, p=1),
