@@ -42,7 +42,7 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
     # Implementation of the universal speech enhancement augmentation from https://arxiv.org/pdf/2206.03065.pdf
     augment = SomeOf(
         num_transforms=([1, 2, 3, 4, 5], [0.35, 0.45, 0.15, 0.04, 0.01]),
-        weights=[1, 1, 1, 1, 1, 4, 1, 1, 1],
+        weights=[1, 1, 1, 1, 1, 4, 1, 1],
         transforms=[
             OneOf([
                 BandPassFilter(min_center_freq=600, p=1),
@@ -77,7 +77,6 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
                     AddBackgroundNoise(environmental_noises_path, p=1),
                     AddBackgroundNoise(background_noises_path, p=1),
                     AddShortNoises(short_noises_path, noise_rms='relative_to_whole_input', p=1),
-                    AddDCComponent(p=1)
                 ]
             ),
             OneOf([
@@ -86,7 +85,8 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
                 ShortDelay(p=1)
             ], weights=[1, 120, 3]),
             OneOf([
-                AddGaussianNoise(max_amplitude=0.5, p=1)
+                AddGaussianNoise(max_amplitude=0.5, p=1),
+                AddDCComponent(p=1)
             ])
         ]
     )
