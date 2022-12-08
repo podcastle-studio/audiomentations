@@ -87,7 +87,7 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
             OneOf([
                 AddGaussianNoise(max_amplitude=0.5, p=1),
                 AddDCComponent(p=1)
-            ])
+            ], weights=[15, 1]),
         ]
     )
 
