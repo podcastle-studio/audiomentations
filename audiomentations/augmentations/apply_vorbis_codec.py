@@ -35,7 +35,9 @@ class ApplyVorbisCodec(BaseWaveformTransform):
 
     def apply(self, samples, sample_rate):
         ffmpeg_codec = [
-            '-c:a', 'libvorbis', '-q:a', '10', '-f', 'ogg'
+            '-c:a', 'libvorbis', 
+            '-q:a', str(self.parameters['compression']), 
+            '-f', 'ogg'
         ]
         
         compressed_samples = apply_ffmpeg_codec(samples, sample_rate, ffmpeg_codec)
