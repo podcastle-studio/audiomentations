@@ -239,13 +239,53 @@ def apply_ffmpeg_commands(samples, sample_rate, commands):
     return reconstructed
 
 
+def apply_ffmpeg_codec(samples, sample_rate, codec):
+    import soundfile as sf
+    
+    if len(samples.shape) == 2:
+        samples = samples.T
+
+    cmd = [
+        "ffmpeg", 
+        "-i", 'pipe:0',
+        *codec,
+        "-"
+    ]
+
+    p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+
+    b = io.BytesIO()
+    b.name = "toffmpeg.wav"
+    sf.write(b, samples, samplerate=sample_rate, format='WAV')
+    b.seek(0)
+
+    data, out = p.communicate(b.read())
+
+    if b"Error" in out:
+        raise Exception(out)
+
+    reconstructed = sf.read(file=io.BytesIO(data))[0]
+
+    if samples.dtype == np.float32:
+        reconstructed = reconstructed.astype(np.float32)
+
+    return reconstructed
+
+
 def random_log(a, b):
     """
     Pick a random number between a and b in logarithmic scale
     param a: float. Lower bound
     param b: float. Upper bound
     """
-    return math.exp(random.uniform(math.log(a), math.log(b)))
+    shift = 0
+    if a < 0:
+        shift = - a + 1
+        a += shift
+        b += shift
+
+    return math.exp(random.uniform(math.log(a), math.log(b))) - shift
+
 
 
 def random_log_int(a, b):
