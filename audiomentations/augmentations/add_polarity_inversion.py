@@ -2,7 +2,6 @@ from torch import Tensor
 from typing import Optional
 
 from ..core.transforms_interface import BaseWaveformTransform
-from ..utils.object_dict import ObjectDict
 
 
 class PolarityInversion(BaseWaveformTransform):
@@ -25,5 +24,5 @@ class PolarityInversion(BaseWaveformTransform):
         super().__init__(p)
 
     def apply(self, samples, sample_rate):
-        new_samples = samples * (-1)
+        new_samples = samples * -1
         return new_samples

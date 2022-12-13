@@ -1,6 +1,9 @@
 from audiomentations.core.composition import SomeOf, OneOf
 
 from audiomentations import (
+
+    PolarityInversion,
+
     BandPassFilter,
     HighPassFilter,
     LowPassFilter,
@@ -41,9 +44,10 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
                                  impulse_responses_path):
     # Implementation of the universal speech enhancement augmentation from https://arxiv.org/pdf/2206.03065.pdf
     augment = SomeOf(
-        num_transforms=([1, 2, 3, 4, 5], [0.35, 0.45, 0.15, 0.04, 0.01]),
-        weights=[1, 1, 1, 1, 1, 4, 1, 1],
+        num_transforms=([2, 3, 4, 5, 6], [0.35, 0.45, 0.15, 0.04, 0.01]),
+        weights=[10, 1, 1, 1, 1, 1, 4, 1, 1],
         transforms=[
+            OneOf([PolarityInversion(p=1)]),
             OneOf([
                 BandPassFilter(min_center_freq=600, p=1),
                 HighPassFilter(p=1),
