@@ -44,6 +44,7 @@ from .augmentations.tanh_distortion import TanhDistortion
 from .augmentations.time_mask import TimeMask
 from .augmentations.time_stretch import TimeStretch
 from .augmentations.tremolo import Tremolo
+from .augmentations.add_polarity_inversion import PolarityInversion
 from .augmentations.trim import Trim
 from .augmentations.add_dc_component import AddDCComponent
 from .augmentations.add_phase_randomization import AddRandomizedPhaseShiftNoise

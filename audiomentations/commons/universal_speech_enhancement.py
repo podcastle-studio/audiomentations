@@ -1,6 +1,9 @@
-from audiomentations.core.composition import SomeOf, OneOf
+from audiomentations.core.composition import SomeOf, OneOf, Compose
 
 from audiomentations import (
+
+    PolarityInversion,
+
     BandPassFilter,
     HighPassFilter,
     LowPassFilter,
@@ -91,4 +94,4 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
         ]
     )
 
-    return augment
+    return Compose([PolarityInversion(p=0.5), augment])
