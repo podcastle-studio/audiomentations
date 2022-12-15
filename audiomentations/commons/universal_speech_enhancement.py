@@ -3,6 +3,7 @@ from audiomentations.core.composition import SomeOf, OneOf, Compose
 from audiomentations import (
 
     PolarityInversion,
+    PitchShift,
 
     BandPassFilter,
     HighPassFilter,
@@ -58,6 +59,7 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
                 ApplyULawCodec(p=1)
             ], weights=[3, 3]),
             OneOf([
+
                 Overdrive(p=1),
                 ClippingDistortion(p=1)
             ], weights=[5, 8]),
@@ -88,10 +90,11 @@ def universal_speech_enhancement(environmental_noises_path, background_noises_pa
                 ShortDelay(p=1)
             ], weights=[1, 120, 3]),
             OneOf([
+
                 AddGaussianNoise(max_amplitude=0.5, p=1),
                 AddDCComponent(p=1)
             ], weights=[15, 1]),
         ]
     )
 
-    return Compose([PolarityInversion(p=0.5), augment])
+    return Compose([PitchShift(p=0.2), PolarityInversion(p=0.5), augment])

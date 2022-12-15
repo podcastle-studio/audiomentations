@@ -1,5 +1,5 @@
 import torchaudio
-from random import choices
+import random
 
 from torch import Tensor
 from typing import Optional
@@ -114,7 +114,7 @@ class PitchShift(BaseWaveformTransform):
         :param samples: (batch_size, num_channels, num_samples)
         :param sample_rate:
         """
-        self.parameters["transpositions"] = choices(self._fast_shifts, k=1)
+        self.parameters["transpositions"] = random.choices(self._fast_shifts, k=1)
 
     def apply_transform(
         self,

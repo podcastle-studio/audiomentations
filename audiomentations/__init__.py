@@ -30,7 +30,8 @@ from .augmentations.overdrive import Overdrive
 from .augmentations.padding import Padding
 from .augmentations.peaking_filter import PeakingFilter
 from .augmentations.phaser import Phaser
-from .augmentations.pitch_shift import PitchShift
+# from .augmentations.pitch_shift import PitchShift
+from .augmentations.add_pitch_shift import PitchShift
 from .augmentations.polarity_inversion import PolarityInversion
 from .augmentations.resample import Resample
 from .augmentations.reverse import Reverse
