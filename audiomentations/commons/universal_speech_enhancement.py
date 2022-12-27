@@ -41,12 +41,12 @@ from audiomentations import (
 
 
 def universal_speech_enhancement(
-        environmental_noises_path, 
-        background_noises_path, 
-        short_noises_path,
-        impulse_responses_path,
-        simulated_impulse_responses_path = None
-    ):
+    environmental_noises_path,
+    background_noises_path,
+    short_noises_path,
+    impulse_responses_path,
+    simulated_impulse_responses_path=None
+):
     # Implementation of the universal speech enhancement augmentation from https://arxiv.org/pdf/2206.03065.pdf
     # The weights are taken from the paper
 

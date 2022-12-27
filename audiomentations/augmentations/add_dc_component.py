@@ -23,7 +23,7 @@ class AddDCComponent(BaseWaveformTransform):
                 self.min_amplitude_shift_proportion, self.max_amplitude_shift_proportion
             )
 
-    def apply(self, samples):
+    def apply(self, samples, sample_rate):
         if self.parameters["amplitude_type"] == "positive":
             amplitude_gain = max(0, 1 - samples.max())
         else:
