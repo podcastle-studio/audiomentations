@@ -214,8 +214,10 @@ class SomeOf(BaseCompose):
                     sample_rate = args[1]
 
                 for transform_index in self.transform_indexes:
-                    samples = self.transforms[transform_index](samples, sample_rate)
-
+                    if type(self.transforms[transform_index]) == tuple:
+                        samples = self.transforms[transform_index](samples, sample_rate)
+                    else:
+                        samples = self.transforms[transform_index](samples, sample_rate)
                 return samples
 
         if "samples" in kwargs:
