@@ -215,7 +215,7 @@ class SomeOf(BaseCompose):
 
                 for transform_index in self.transform_indexes:
                     if type(self.transforms[transform_index]) == tuple:
-                        samples = self.transforms[transform_index](samples, sample_rate)
+                        samples = self.transforms[transform_index][0](samples, sample_rate)
                     else:
                         samples = self.transforms[transform_index](samples, sample_rate)
                 return samples
