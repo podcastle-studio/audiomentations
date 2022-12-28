@@ -220,7 +220,7 @@ class SomeOf(BaseCompose):
                     if type(self.transforms[transform_index]) == tuple:
                         samples = self.transforms[transform_index][0](samples, sample_rate)
                         if self.verbose > 0:
-                            print(f"Applied {self.transforms[transform_index][1]}")
+                            print(f"Applied {self.transforms[transform_index][0]}")
                     else:
                         samples = self.transforms[transform_index](samples, sample_rate)
                         if self.verbose > 0:
@@ -280,7 +280,7 @@ class OneOf(BaseCompose):
             if "apply_to_children" in kwargs:
                 del kwargs["apply_to_children"]
             if self.verbose > 0:
-                print(self.transforms[self.transform_index])
+                print(f"Applied {self.transforms[self.transform_index]}")
             return self.transforms[self.transform_index](*args, **kwargs)
 
         if "samples" in kwargs:
