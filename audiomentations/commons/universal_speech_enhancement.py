@@ -117,7 +117,7 @@ def universal_speech_enhancement(
 
     augment = SomeOf(
         num_transforms=([1, 2, 3, 4, 5], [0.35, 0.45, 0.15, 0.04, 0.01]),
-        weights=[1, 1, 1, 1, 1, 4, 1, 1],
+        weights=[1, 1, 1, 1, 1, 3, 1, 1],
         transforms=[
             band_limiting,
             codec,
