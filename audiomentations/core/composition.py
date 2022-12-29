@@ -226,7 +226,7 @@ class SomeOf(BaseCompose):
                         samples = self.transforms[transform_index](samples, sample_rate)
                         if self.verbose > 0:
                             print(f"Applied {self.transforms[transform_index]}")
-                            print("Parameters ", self.transforms[transform_index][0].parameters)
+                            print("Parameters ", self.transforms[transform_index].parameters)
                 return samples
 
         if "samples" in kwargs:
