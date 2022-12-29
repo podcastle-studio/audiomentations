@@ -147,7 +147,7 @@ class SomeOf(BaseCompose):
     ```
     """
 
-    def __init__(self, num_transforms: int or tuple, transforms, p: float = 1.0, weights=None):
+    def __init__(self, num_transforms: int or tuple, transforms, p: float = 1.0, weights=None, verbose=0):
         super().__init__(transforms, p)
         self.transform_indexes = []
         self.num_transforms = num_transforms
@@ -156,6 +156,7 @@ class SomeOf(BaseCompose):
         if self.weights is None:
             self.weights = [1.0] * len(transforms)
         assert len(self.weights) == len(transforms)
+        self.verbose = verbose
 
     def randomize_parameters(self, *args, **kwargs):
         super().randomize_parameters(*args, **kwargs)
@@ -203,6 +204,8 @@ class SomeOf(BaseCompose):
                     magnitude_spectrogram = self.transforms[transform_index](
                         magnitude_spectrogram
                     )
+                    if self.verbose > 0:
+                        print(f"Applied {self.transforms[transform_index]}")
 
                 return magnitude_spectrogram
             else:  # The transforms are subclasses of BaseWaveformTransform
@@ -216,8 +219,12 @@ class SomeOf(BaseCompose):
                 for transform_index in self.transform_indexes:
                     if type(self.transforms[transform_index]) == tuple:
                         samples = self.transforms[transform_index][0](samples, sample_rate)
+                        if self.verbose > 0:
+                            print(f"Applied {self.transforms[transform_index][0]}")
                     else:
                         samples = self.transforms[transform_index](samples, sample_rate)
+                        if self.verbose > 0:
+                            print(f"Applied {self.transforms[transform_index]}")
                 return samples
 
         if "samples" in kwargs:
@@ -246,7 +253,7 @@ class OneOf(BaseCompose):
     ```
     """
 
-    def __init__(self, transforms, p: float = 1.0, weights=None):
+    def __init__(self, transforms, p: float = 1.0, weights=None, verbose=0):
         super().__init__(transforms, p)
         self.transform_index = 0
         self.should_apply = True
@@ -256,6 +263,7 @@ class OneOf(BaseCompose):
             assert len(weights) == len(self.transforms)
 
         self.weights = weights
+        self.verbose = verbose
         
     def randomize_parameters(self, *args, **kwargs):
         super().randomize_parameters(*args, **kwargs)
@@ -272,7 +280,7 @@ class OneOf(BaseCompose):
             if "apply_to_children" in kwargs:
                 del kwargs["apply_to_children"]
             if self.verbose > 0:
-                print(self.transforms[self.transform_index])
+                print(f"Applied {self.transforms[self.transform_index]}")
             return self.transforms[self.transform_index](*args, **kwargs)
 
         if "samples" in kwargs:
