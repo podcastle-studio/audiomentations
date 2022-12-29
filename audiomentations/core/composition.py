@@ -222,7 +222,6 @@ class SomeOf(BaseCompose):
                         samples = self.transforms[transform_index][0](samples, sample_rate)
                         if self.verbose > 0:
                             print(f"Applied {self.transforms[transform_index][0]}")
-                            print("Parameters ", self.transforms[transform_index][0].parameters)
                     else:
                         samples = self.transforms[transform_index](samples, sample_rate)
                         if self.verbose > 0:
