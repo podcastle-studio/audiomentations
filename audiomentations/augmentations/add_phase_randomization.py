@@ -27,5 +27,4 @@ class AddRandomizedPhaseShiftNoise(BaseWaveformTransform):
         new_samples = np.fft.irfft(fourier_randomized)
 
         assert samples.shape == new_samples.shape
-
         return new_samples
