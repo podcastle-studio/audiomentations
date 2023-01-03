@@ -20,10 +20,12 @@ class AddRandomizedPhaseShiftNoise(BaseWaveformTransform):
             phase_shift = random.uniform(self.min_phase_shift, self.max_phase_shift)
             self.parameters["phase_shift"] = phase_shift
 
-    def apply(self, samples):
+    def apply(self, samples, sample_rate):
         fourier = np.fft.rfft(samples)
         random_phases = np.exp(np.random.uniform(0, self.parameters["phase_shift"], int(len(samples) / 2 + 1)) * 1.0j)
         fourier_randomized = fourier * random_phases
         new_samples = np.fft.irfft(fourier_randomized)
+
+        assert samples.shape == new_samples.shape
 
         return new_samples
