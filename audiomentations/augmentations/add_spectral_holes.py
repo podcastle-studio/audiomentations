@@ -22,7 +22,7 @@ class AddSpectralHoles(BaseWaveformTransform):
 
     def apply(self, samples, sample_rate):
         fourier = np.fft.rfft(samples)
-        indices = random.sample(list(range(len(fourier_abs))), len(fourier) * self.parameters["proportion"])
+        indices = random.sample(list(range(len(fourier))), int(len(fourier) * self.parameters["proportion"]))
         fourier[indices] = 0
         new_samples = np.fft.irfft(fourier)
 
