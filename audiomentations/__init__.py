@@ -43,11 +43,12 @@ from .augmentations.simple_expansor import SimpleExpansor
 from .augmentations.tanh_distortion import TanhDistortion
 from .augmentations.time_mask import TimeMask
 from .augmentations.time_stretch import TimeStretch
-from .augmentations.tremolo import Tremolo
+from .augmentations.add_spectral_holes import AddSpectralHoles
 from .augmentations.add_polarity_inversion import PolarityInversion
 from .augmentations.trim import Trim
 from .augmentations.add_dc_component import AddDCComponent
 from .augmentations.add_phase_randomization import AddRandomizedPhaseShiftNoise
+from .augmentations.add_phase_randomization import Add
 from .augmentations.two_pole_all_pass_filter import TwoPoleAllPassFilter
 from .core.composition import Compose, SpecCompose, OneOf, SomeOf
 from .spec_augmentations.spec_channel_shuffle import SpecChannelShuffle
