@@ -206,7 +206,8 @@ class SomeOf(BaseCompose):
                     )
                     if self.verbose > 0:
                         print(f"Applied {self.transforms[transform_index]}")
-                        print("Parameters ", self.transforms[transform_index].parameters())
+                        if verbose > 1:
+                            print("Parameters ", self.transforms[transform_index].parameters())
 
                 return magnitude_spectrogram
             else:  # The transforms are subclasses of BaseWaveformTransform
@@ -226,7 +227,8 @@ class SomeOf(BaseCompose):
                         samples = self.transforms[transform_index](samples, sample_rate)
                         if self.verbose > 0:
                             print(f"Applied {self.transforms[transform_index]}")
-                            print("Parameters ", self.transforms[transform_index].parameters)
+                            if verbose > 1:
+                                print("Parameters ", self.transforms[transform_index].parameters)
                 return samples
 
         if "samples" in kwargs:
@@ -283,7 +285,8 @@ class OneOf(BaseCompose):
                 del kwargs["apply_to_children"]
             if self.verbose > 0:
                 print(f"Applied {self.transforms[self.transform_index]}")
-                print("Parameters ", self.transforms[self.transform_index].parameters)
+                if verbose > 1:
+                    print("Parameters ", self.transforms[self.transform_index].parameters)
             return self.transforms[self.transform_index](*args, **kwargs)
 
         if "samples" in kwargs:
