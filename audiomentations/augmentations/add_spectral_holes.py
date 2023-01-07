@@ -6,7 +6,7 @@ from audiomentations.core.transforms_interface import BaseWaveformTransform
 
 class AddSpectralHoles(BaseWaveformTransform):
 
-    def __init__(self, p=0.5, min_proportion=0.2, max_proportion=0.05):
+    def __init__(self, p=0.5, min_proportion=0.05, max_proportion=0.2):
         """
         :param p:
         """
