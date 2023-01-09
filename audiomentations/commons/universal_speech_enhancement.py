@@ -32,6 +32,9 @@ from audiomentations import (
 
     AddDCComponent,
 
+    AddRandomizedPhaseShiftNoise,
+    AddSpectralHoles,
+
     Phaser,
     ApplyImpulseResponse,
     ShortDelay,
@@ -116,9 +119,15 @@ def universal_speech_enhancement(
         AddDCComponent(p=1)
     ], weights=[15, 1], verbose=verbose),
 
+    # Spectral manipulation.
+    spectral_noise = OneOf([
+        AddRandomizedPhaseShiftNoise(p=1),
+        AddSpectralHoles(p=1)
+    ], weights=[1, 1], verbose=verbose),
+
     augment = SomeOf(
         num_transforms=([1, 2, 3, 4, 5], [0.35, 0.45, 0.15, 0.04, 0.01]),
-        weights=[1, 1, 1, 1, 1, 3, 1, 1],
+        weights=[1, 1, 1, 1, 1, 3, 1, 1, 1],
         transforms=[
             band_limiting,
             codec,
@@ -127,7 +136,8 @@ def universal_speech_enhancement(
             equalization,
             recorded_noise,
             reverb_delay,
-            synthetic_noise
+            synthetic_noise,
+            spectral_noise
         ],
         verbose=verbose
     )
