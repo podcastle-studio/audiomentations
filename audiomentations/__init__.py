@@ -43,6 +43,7 @@ from .augmentations.simple_expansor import SimpleExpansor
 from .augmentations.tanh_distortion import TanhDistortion
 from .augmentations.time_mask import TimeMask
 from .augmentations.time_stretch import TimeStretch
+from .augmentations.tremolo import Tremolo
 from .augmentations.add_spectral_holes import AddSpectralHoles
 from .augmentations.add_polarity_inversion import PolarityInversion
 from .augmentations.trim import Trim
