@@ -80,9 +80,9 @@ def universal_speech_enhancement(
         DestroyLevels(p=1),
         NoiseGate(p=1),
         SimpleCompressor(p=1),
-        SimpleExpansor(p=1),
-        Tremolo(p=1)
-    ], weights=[10, 20, 10, 3, 2, 2], verbose=verbose),
+        SimpleExpansor(p=1)
+        #Tremolo(p=1)
+    ], weights=[10, 20, 10,3, 2], verbose=verbose),
 
     # Equalization
     equalization = OneOf([
