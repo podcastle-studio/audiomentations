@@ -10,7 +10,7 @@ class AddGaussianNoise(BaseWaveformTransform):
 
     supports_multichannel = True
 
-    def __init__(self, min_amplitude=0.001, max_amplitude=0.015, p=0.5):
+    def __init__(self, min_amplitude=0.001, max_amplitude=0.015, gaussian_scale=0.01, p=0.5):
         """
 
         :param min_amplitude: Minimum noise amplification factor
@@ -23,6 +23,7 @@ class AddGaussianNoise(BaseWaveformTransform):
         assert max_amplitude >= min_amplitude
         self.min_amplitude = min_amplitude
         self.max_amplitude = max_amplitude
+        self.gaussian_scale = gaussian_scale
 
     def randomize_parameters(self, samples, sample_rate):
         super().randomize_parameters(samples, sample_rate)
@@ -32,6 +33,7 @@ class AddGaussianNoise(BaseWaveformTransform):
             )
 
     def apply(self, samples, sample_rate):
-        noise = np.random.normal(0, np.absolute(samples).max() / 3, *samples.shape).astype(np.float32)
+        
+        noise = np.random.normal(0, self.gaussian_scale, *samples.shape).astype(np.float32)
         samples = samples + self.parameters["amplitude"] * noise
         return samples

@@ -227,7 +227,7 @@ class SomeOf(BaseCompose):
                         samples = self.transforms[transform_index](samples, sample_rate)
                         if self.verbose > 0:
                             print(f"Applied {self.transforms[transform_index]}")
-                            if verbose > 1:
+                            if self.verbose > 1:
                                 print("Parameters ", self.transforms[transform_index].parameters)
                 return samples
 
@@ -285,7 +285,7 @@ class OneOf(BaseCompose):
                 del kwargs["apply_to_children"]
             if self.verbose > 0:
                 print(f"Applied {self.transforms[self.transform_index]}")
-                if verbose > 1:
+                if self.verbose > 1:
                     print("Parameters ", self.transforms[self.transform_index].parameters)
             return self.transforms[self.transform_index](*args, **kwargs)
 
