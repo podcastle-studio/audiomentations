@@ -37,12 +37,12 @@ class PitchShift(BaseWaveformTransform):
     
     def apply(self, samples, sample_rate):
 
-        random_num = random.randint(0, samples.shape[1] - sample_rate)
+        random_num = random.randint(0, samples.shape - sample_rate)
         samples_torch = np.copy(samples)
         
-        samples_new = librosa.effects.pitch_shift(samples_torch[0, random_num: random_num + sample_rate],
+        samples_new = librosa.effects.pitch_shift(samples_torch[random_num: random_num + sample_rate],
                                 n_steps =self.parameters["num_semitones"],
                                 sr=sample_rate
                                 )
-        samples_torch[0, random_num: random_num + sample_rate] = samples_new
+        samples_torch[random_num: random_num + sample_rate] = samples_new
         return samples_torch
